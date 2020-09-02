@@ -103,3 +103,8 @@ artifacts {
     archives testingBundle.flatMap { it.archiveFile }
     testArtifacts testingBundle.flatMap { it.archiveFile }
 }
+
+task bundles(type: Copy) {
+    from configurations.runtimeClasspath
+    into 'bundles'
+}

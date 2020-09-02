@@ -22,6 +22,7 @@ include 'impl'
 include 'logback'
 include 'logging'
 include 'quasar'
+include 'loader'
 
 gradleEnterprise {
     buildScan {

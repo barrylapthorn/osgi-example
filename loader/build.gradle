@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.osgi:osgi.annotation:$osgi_version"
+        classpath "org.osgi:osgi.core:$osgi_version"
+        classpath "org.osgi:org.osgi.service.component.annotations:$osgi_component_annotations_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    }
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtimeClasspath "org.osgi:osgi.core:$osgi_version"
+    runtimeClasspath "org.apache.felix:org.apache.felix.framework:6.0.3"
+
+    compile "org.osgi:osgi.annotation:$osgi_version"
+    compile "org.osgi:osgi.core:$osgi_version"
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+}
+
+jar {
+    from(configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) })
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+    manifest {
+        attributes('Main-Class': 'com.example.loader.Main')
+    }
+}
